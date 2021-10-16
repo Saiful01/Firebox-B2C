@@ -1,0 +1,134 @@
+/*
+header .header-right .dual-btn .modal-cart .modal-cart-body {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.slider-section .home-slider .slider-item .slider-right .slider-img {
+    width: 100%;
+}
+*/
+
+.product-container .product-block-bottom .product-title {
+    margin-bottom: 6px;
+    min-height: 65px;
+}
+
+a {
+    color: #858585;
+}
+
+.cat-active a {
+    color: #E3168F;
+}
+
+.mobile-margin {
+    margin-bottom: 40px;
+}
+
+
+.quantity-minus, .quantity-plus {
+    cursor: pointer;
+}
+
+p a {
+    font-size: 14px;
+}
+
+.logout {
+    color: #FFFFFF !important;
+}
+
+.product-details-img-fluid {
+    max-width: 434px;
+    max-height: 437px;
+}
+
+header .header-right .dual-btn .user-avatar ul {
+    top: 35px;
+}
+
+header .modal-cart {
+    border: 1px solid #ece7e7;
+}
+
+.delivery-details-btns #address {
+    margin-top: 3px;
+    margin: 0 auto;
+    margin-right: 0px;
+}
+.login-text{
+    margin-top: 7px;
+}
+.login-logout-modal {
+    height: fit-content;
+}
+.user-avatar, .header-login-btn{
+    margin-left: 35px;
+
+}
+.slider-section .home-slider .slider-item .slider-left {
+    overflow: hidden;
+}
+.login-logout-modal {
+    left: auto;
+}
+
+@media (max-width: 480px) {
+    .product-container .product-block-bottom .product-title {
+        margin-bottom: 6px;
+        min-height: 30px;
+    }
+
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-footer {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .login-logout-modal {
+        width: 100%;
+    }
+    .login-logout-modal form {
+        padding: 32px;
+    }
+
+    .slider-section .home-slider .slider-item .slider-right .slider-img {
+        width: 458px;
+        margin-left: -65px;
+        margin-top: -95px;
+    }
+    .handcrafted-icecreame-section {
+        padding-top: 0px;
+    }
+    .testimonial-section {
+        padding-top: 0px;
+    }
+    .faq-section {
+        padding-top: 0px;
+    }
+    footer {
+        padding-top: 0px;
+    }
+
+    .mobile-cart-icon{
+        margin-right: 19px;
+    }
+    .header-login-btn{
+        margin-left: 0px;
+
+    }
+    .slider-section .home-slider .slider-item .slider-left .slider-title {
+        font-size: 50px;
+    }
+
+}
+
