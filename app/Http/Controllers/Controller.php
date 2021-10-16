@@ -30,7 +30,7 @@ class Controller extends BaseController
                 $sub_category->sub_categories = SubCategory::where('category_id', $sub_category->category_id)->get();
             }
         }
-        //return $popular_categories;
+
         $healthcare_products = Product::orderBy('products.updated_at', 'DESC')
             ->where('products.is_active', true)
             ->where('products.parent_category_id', getCategoryIdFromName(1, "Health, Beauty"))
@@ -39,6 +39,11 @@ class Controller extends BaseController
         $footwear_products = Product::orderBy('products.updated_at', 'DESC')
             ->where('products.is_active', true)
             ->where('products.parent_category_id', getCategoryIdFromName(1, "Footwear"))
+            ->limit(10)
+            ->get();
+        $hobbies_products = Product::orderBy('products.updated_at', 'DESC')
+            ->where('products.is_active', true)
+            ->where('products.parent_category_id', getCategoryIdFromName(1, "Hobbies , Sports & Kids"))
             ->limit(10)
             ->get();
         $new_products = Product::orderBy('products.updated_at', 'DESC')
@@ -60,6 +65,7 @@ class Controller extends BaseController
             ->with('featured_products', $featured_products)
             ->with('healthcare_products', $healthcare_products)
             ->with('footwear_products', $footwear_products)
+            ->with('hobbies_products', $hobbies_products)
             ->with('sliders', $sliders)
             ->with('secondary_slider', $secondary_slider);
 

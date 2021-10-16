@@ -14,6 +14,7 @@
 
             @include('common.home.healthcare')
             @include('common.home.footwear_products')
+            @include('common.home.hobbies_sports_kids')
         </div>
         <!-- End of Container -->
 

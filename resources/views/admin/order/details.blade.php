@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-sm-4">
 
-                            <a href="" class=""><img src="/images/logo.jpg" width="215" alt="Not image found"></a>
+                            <a href="" class=""><img src="/images/logo.png" width="215" alt="Not image found"></a>
 
                             {{--  {{$products->shop_name}}<br>
                               {{$products->shop_phone}}<br>

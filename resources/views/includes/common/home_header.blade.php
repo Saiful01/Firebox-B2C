@@ -109,25 +109,15 @@
                                                 <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
                                                     <i class="w-icon-furniture"></i>{{$parent_category->parent_category_name_en}}
                                                 </a>
-                                                <ul class="submenu">
+
+                                                <ul class="submenu" @if($parent_category->parent_category_id != 5) style="margin-top: -44px" @endif>
 
                                                     @foreach($parent_category->categories as $category)
 
 
-                                                        <li>
-                                                            <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}}</a>
+                                                        <li >
+                                                            <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}} </a>
                                                         </li>
-                                                        {{-- <li>
-                                                             <h4 class="menu-title">Men</h4>
-                                                             <hr class="divider">
-                                                             <ul>
-                                                                 <li><a href="shop-fullwidth-banner.html">New Arrivals</a>
-                                                                 </li>
-                                                                 <li><a href="shop-fullwidth-banner.html">Best Sellers</a>
-                                                                 </li>
-
-                                                             </ul>
-                                                         </li>--}}
                                                     @endforeach
 
                                                 </ul>

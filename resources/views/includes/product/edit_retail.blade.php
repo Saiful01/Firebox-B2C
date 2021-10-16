@@ -192,7 +192,7 @@
             <div class="col-md-6">
                 <label for="qr_code">Product Code</label>
                 <input id="qr_code" name="qr_code" type="text" class="form-control"
-                       value="{{$result->qr_code}}" readonly>
+                       value="{{$result->qr_code}}" >
 
             </div>
             {{--    <div class="col-md-6">
