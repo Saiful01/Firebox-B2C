@@ -150,7 +150,7 @@
                                 <td colspan="4" class="border-0 text-right">
                                     <strong>Total</strong></td>
                                 <td class="border-0 text-right"><h4 class="m-0">
-                                        ৳ {{$order->total}}</h4></td>
+                                        ৳ {{$order->sub_total}}</h4></td>
                             </tr>
 
                             <tr>
@@ -162,7 +162,7 @@
                             <tr>
                                 <td colspan="4" class="border-0 text-right">
                                     <strong>Grand Total</strong></td>
-                                <td class="border-0 text-right"><h4 class="m-0">৳ {{$order->sub_total}}</h4></td>
+                                <td class="border-0 text-right"><h4 class="m-0">৳ {{($order->sub_total - $order->discount)}}</h4></td>
                             </tr>
                             </tbody>
                         </table>
