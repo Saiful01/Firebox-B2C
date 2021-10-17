@@ -28,7 +28,16 @@
             <div class="tab-pane active" id="main-menu">
                 <ul class="mobile-menu">
                     <li><a href="/">Home</a></li>
-                    <li>
+                 {{--  <li>
+                                  <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
+                                      <i class="w-icon-heartbeat"></i>{{$parent_category->parent_category_name_en}}
+                                  </a>
+                              </li>--}}
+
+
+
+
+        {{--            <li>
                         <a href="#">Shop</a>
                         <ul>
                             <li> <a href="#">Shop Pages</a> </li>
@@ -42,14 +51,47 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>--}}
 
                 </ul>
             </div>
             <div class="tab-pane" id="categories">
                 <ul class="mobile-menu">
-                    <li><a href="/">Home</a></li>
-                    <li>
+                    @foreach(getCategories(11) as $parent_category)
+
+                        @if(count($parent_category->categories)>0)
+
+
+
+                            <li class="">
+                                <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
+                                    <i class="w-icon-furniture"></i>{{$parent_category->parent_category_name_en}}
+                                </a>
+
+                                <ul >
+
+                                    @foreach($parent_category->categories as $category)
+
+
+                                        <li >
+                                            <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}} </a>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+                            </li>
+
+
+                        @else
+                            <li>
+                                <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
+                                    <i class="w-icon-heartbeat"></i>{{$parent_category->parent_category_name_en}}
+                                </a>
+                            </li>
+                        @endif
+
+                    @endforeach
+             {{--       <li>
                         <a href="#">Shop</a>
                         <ul>
                             <li> <a href="#">Shop Pages</a> </li>
@@ -63,7 +105,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>--}}
 
 
                 </ul>

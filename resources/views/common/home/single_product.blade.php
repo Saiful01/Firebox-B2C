@@ -2,12 +2,8 @@
     <div class="product text-center">
         <figure class="product-media">
             <a href="/product/{{$product->product_id}}/{{getTitleToUrl($product->product_name)}}">
-                <img src="{{$product->featured_image}}" alt="Product"
-                     width="300"
-                     height="338" style="min-height: 256px">
-                <img src="{{$product->featured_image}}" alt="Product"
-                     width="300"
-                     height="338" style="min-height: 256px">
+                <img src="{{$product->featured_image}}" alt="Product">
+                <img src="{{$product->featured_image}}" alt="Product">
             </a>
             <div class="product-label-group">
                 <label class="product-label label-discount">{{$product->discount_rate}}% OFF</label>

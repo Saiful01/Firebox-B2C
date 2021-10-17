@@ -93,14 +93,20 @@
         <i class="w-icon-home"></i>
         <p>Home</p>
     </a>
-    <a href="/" class="sticky-link">
-        <i class="w-icon-category"></i>
-        <p>Shop</p>
-    </a>
-    <a href="/customer/profile" class="sticky-link">
-        <i class="w-icon-account"></i>
-        <p>Account</p>
-    </a>
+    @if (!Auth::guard('is_customer')->check())
+        <a href="#" class="sticky-link">
+            <i class="w-icon-account"></i>
+            <p>Login/Registration</p>
+        </a>
+
+
+    @else
+        <a href="/customer/profile" class="sticky-link">
+            <i class="w-icon-account"></i>
+            <p>Account</p>
+        </a>
+    @endif
+
     <div class="cart-dropdown dir-up">
         <a href="#" class="sticky-link">
             <i class="w-icon-cart"></i>
@@ -138,14 +144,14 @@
             </div>
 
             <div class="cart-action">
-                <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
+                <a href="/cart" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                <a href="/cart" class="btn btn-primary  btn-rounded">Checkout</a>
             </div>
         </div>
         <!-- End of Dropdown Box -->
     </div>
 
-    <div class="header-search hs-toggle dir-up">
+{{--    <div class="header-search hs-toggle dir-up">
         <a href="#" class="search-toggle sticky-link">
             <i class="w-icon-search"></i>
             <p>Search</p>
@@ -157,7 +163,7 @@
                 <i class="w-icon-search"></i>
             </button>
         </form>
-    </div>
+    </div>--}}
 </div>
 <!-- End of Sticky Footer -->
 
