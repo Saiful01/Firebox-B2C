@@ -687,7 +687,8 @@ function getAllCategories()
 
 function getInvoice()
 {
-    return time() . rand(1, 5);
+    return random_int(100000, 999999);
+   /* return time() . rand(1, 5);*/
 }
 
 function getExpireLimit()

@@ -73,7 +73,7 @@ class ProductController extends Controller
             $image = $request->file('featured');
             $image_name = time() . '.' . $image->getClientOriginalExtension();
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resizeCanvas(800, 900);
+            $image_resize->resizeCanvas(1080, 1080);
             $image_resize->save(public_path('/images/product/' . $image_name));
 
 
@@ -94,7 +94,7 @@ class ProductController extends Controller
 
                 $image_name = $i . time() . '.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resizeCanvas(800, 900);
+                $image_resize->resizeCanvas(1080, 1080);
                 $image_resize->save(public_path('/images/product/' . $image_name));
 
                 /* $destinationPath = public_path('/images/product/');
@@ -310,7 +310,7 @@ class ProductController extends Controller
              $image->move($destinationPath, $image_name);*/
 
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resizeCanvas(800, 900);
+            $image_resize->resizeCanvas(1080, 1080);
             $image_resize->save(public_path('/images/product/' . $image_name));
             $request->request->add(['featured_image' => '/images/product/' . $image_name]);
 
@@ -322,7 +322,7 @@ class ProductController extends Controller
             foreach ($request['image'] as $image) {
                 $featured_image = $i . time() . '.' . $image->getClientOriginalExtension();
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resizeCanvas(800, 900);
+                $image_resize->resizeCanvas(1080, 1080);
                 $image_resize->save(public_path('/images/product/' . $featured_image));
 //                $destinationPath = public_path('/images/product/');
 //                $image->move($destinationPath, $featured_image);

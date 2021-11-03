@@ -93,6 +93,12 @@
                             <div class="dropdown-box">
                                 <ul class="menu vertical-menu category-menu">
 
+                                    {{--  <li>
+                                          <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
+                                              <i class="w-icon-heartbeat"></i>{{$parent_category->parent_category_name_en}}
+                                          </a>
+                                      </li>--}}
+
                                     @foreach(getCategories(11) as $parent_category)
 
                                         @if(count($parent_category->categories)>0)
@@ -103,25 +109,15 @@
                                                 <a href="/parent-categories/{{$parent_category->parent_category_id}}/{{getTitleToUrl($parent_category->parent_category_name_en)}}">
                                                     <i class="w-icon-furniture"></i>{{$parent_category->parent_category_name_en}}
                                                 </a>
-                                                <ul class="submenu">
+
+                                                <ul class="submenu" @if($parent_category->parent_category_id != 5) style="margin-top: -44px" @endif>
 
                                                     @foreach($parent_category->categories as $category)
 
 
-                                                        <li>
-                                                            <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}}</a>
+                                                        <li >
+                                                            <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}} </a>
                                                         </li>
-                                                        {{-- <li>
-                                                             <h4 class="menu-title">Men</h4>
-                                                             <hr class="divider">
-                                                             <ul>
-                                                                 <li><a href="shop-fullwidth-banner.html">New Arrivals</a>
-                                                                 </li>
-                                                                 <li><a href="shop-fullwidth-banner.html">Best Sellers</a>
-                                                                 </li>
-
-                                                             </ul>
-                                                         </li>--}}
                                                     @endforeach
 
                                                 </ul>
@@ -138,10 +134,9 @@
 
                                     @endforeach
 
-
                                     <li>
-                                        <a href="shop-banner-sidebar.html"
-                                           class="font-weight-bold text-primary text-uppercase ls-25">
+                                        <a href="/all-products"
+                                           class="font-weight-bold text-uppercase ls-25">
                                             View All Categories<i class="w-icon-angle-right"></i>
                                         </a>
                                     </li>

@@ -756,14 +756,23 @@ class CustomerController extends Controller
 
     public function reviewStore(Request $request)
     {
+      //  return $request->all();
+        $id=Auth::guard('is_customer')->user()->customer_id;
+        $orders= Order::where('customer_id', $id )->get();
+        foreach ($orders as $res){
+            $exist= OrderItem::where('product_id', $request['product_id'])->first();
+            if (is_null($exist)){
+                return back()->with('failed', "You Cannot Review This Product Because You haven't ordered This Product");
+            }
+
+        }
 
         try {
             ProductReview::create([
                 'product_id' => $request['product_id'],
                 'comment' => $request['comment'],
-                'is_whole_sale' => $request['is_whole_sale'],
                 'score' => $request['score'],
-                'customer_id' => Auth::guard('is_customer')->user()->customer_id
+                'customer_id' => $id
             ]);
 
             return back()->with('success', "Successfully Review Posted");

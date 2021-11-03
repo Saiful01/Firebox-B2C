@@ -6,6 +6,7 @@ use App\CustomerAddress;
 use App\ParentCategory;
 use App\Product;
 use App\ProductCategory;
+use App\ProductReview;
 use App\PromotionalSlider;
 use App\SubCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -80,9 +81,12 @@ class Controller extends BaseController
         }
         $images = [];
         $related_products = Product::limit(10)->get();
+        $reviews= ProductReview::Join('customers', 'product_reviews.customer_id', '=', 'customers.customer_id')
+          ->where('product_id', $id)->OrderBy('product_reviews.created_at', "DESC")->limit(4)->get();
         return view('common.product.details')
             ->with('product', $product)
             ->with('images', $images)
+            ->with('reviews', $reviews)
             ->with('related_products', $related_products);
     }
 

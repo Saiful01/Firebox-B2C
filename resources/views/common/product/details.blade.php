@@ -62,15 +62,16 @@
                                     <div class="product-bm-wrapper">
                                         <figure class="brand">
                                             <img src="/images/logo.png" alt="Brand"
-                                                 width="102" height="48" />
+                                                 width="102" height="48"/>
                                         </figure>
                                         <div class="product-meta">
                                             <div class="product-categories">
                                                 <?php
-                                                $category_name=getParentCategoryName($product->parent_category_id);
+                                                $category_name = getParentCategoryName($product->parent_category_id);
                                                 ?>
                                                 Category:
-                                                <span class="product-category"><a href="/parent-categories/{{$product->parent_category_id}}/{{getTitleToUrl($category_name)}}">{{$category_name}}</a></span>
+                                                <span class="product-category"><a
+                                                        href="/parent-categories/{{$product->parent_category_id}}/{{getTitleToUrl($category_name)}}">{{$category_name}}</a></span>
                                             </div>
                                             <div class="product-sku">
                                                 Product Code: <span>{{$product->qr_code}}</span>
@@ -80,7 +81,9 @@
 
                                     <hr class="product-divider">
 
-                                    <div class="product-price"><ins class="new-price">{{$product->selling_price}}BDT</ins></div>
+                                    <div class="product-price">
+                                        <ins class="new-price">{{$product->selling_price}}BDT</ins>
+                                    </div>
 
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -96,31 +99,44 @@
                                     </div>
 
                                     <hr class="product-divider">
+                                    @if($product->product_color!=null AND $product->product_color!='null')
 
-                                   {{-- <div class="product-form product-variation-form product-color-swatch">
-                                        <label>Color:</label>
-                                        <div class="d-flex align-items-center product-variations">
-                                            <a href="#" class="color" style="background-color: #ffcc01"></a>
-                                            <a href="#" class="color" style="background-color: #ca6d00;"></a>
-                                            <a href="#" class="color" style="background-color: #1c93cb;"></a>
-                                            <a href="#" class="color" style="background-color: #ccc;"></a>
-                                            <a href="#" class="color" style="background-color: #333;"></a>
-                                        </div>
-                                    </div>--}}
-                                   {{-- <div class="product-form product-variation-form product-size-swatch">
-                                        <label class="mb-1">Size:</label>
-                                        <div class="flex-wrap d-flex align-items-center product-variations">
-                                            <a href="#" class="size">Small</a>
-                                            <a href="#" class="size">Medium</a>
-                                            <a href="#" class="size">Large</a>
-                                            <a href="#" class="size">Extra Large</a>
-                                        </div>
-                                        <a href="#" class="product-variation-clean">Clean All</a>
-                                    </div>--}}
+                                        <div class="product-form product-variations product-color">
+                                            <label>Color:</label>
+                                            <div class="select-box">
+                                                <select name="color" class="form-control" ng-model="color"
+                                                        ng-change="colorChange()">
+                                                    <option value="" selected="selected">Choose an Option</option>
+                                                    @foreach(json_decode($product->product_color) as $item)
+                                                        <option
+                                                            value="{{getColorFromId($item)}}">{{getColorFromId($item)}}</option>
+                                                    @endforeach
 
-                                   {{-- <div class="product-variation-price">
-                                        <span></span>
-                                    </div>--}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($product->product_size!=null AND $product->product_size!='null')
+                                        <div class="product-form product-variations product-size mt-2 mb-2">
+                                            <label>Size:</label>
+                                            <div class="product-form-group">
+                                                <div class="select-box">
+                                                    <select name="size" class="form-control" ng-model="size"
+                                                            ng-change="sizeChange()">
+                                                        <option value="" selected="selected">Choose an Option</option>
+                                                        @foreach(json_decode($product->product_size) as $item)
+
+                                                            <option
+                                                                value="{{getSizeFromId($item)}}">{{getSizeFromId($item)}}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                                {{--  <a href="#" class="product-variation-clean" style="display: none;">Clean
+                                                      All</a>--}}
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="fix-bottom product-sticky-content sticky-content">
                                         <div class="product-form container">
@@ -166,12 +182,12 @@
                                 <li class="nav-item">
                                     <a href="#product-tab-specification" class="nav-link">Specification</a>
                                 </li>
-                               {{-- <li class="nav-item">
-                                    <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
-                                </li>
+                                {{-- <li class="nav-item">
+                                     <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
+                                 </li>--}}
                                 <li class="nav-item">
                                     <a href="#product-tab-reviews" class="nav-link">Customer Reviews (3)</a>
-                                </li>--}}
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="product-tab-description">
@@ -201,7 +217,7 @@
                                             <figure class="vendor-banner br-sm">
                                                 <img src="/common/assets/images/products/vendor-banner.jpg"
                                                      alt="Vendor Banner" width="610" height="295"
-                                                     style="background-color: #353B55;" />
+                                                     style="background-color: #353B55;"/>
                                             </figure>
                                         </div>
                                         <div class="col-md-6 pl-2 pl-md-6 mb-4">
@@ -209,7 +225,7 @@
                                                 <figure class="vendor-logo mr-4">
                                                     <a href="#">
                                                         <img src="/common/assets/images/products/vendor-logo.jpg"
-                                                             alt="Vendor Logo" width="80" height="80" />
+                                                             alt="Vendor Logo" width="80" height="80"/>
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -334,54 +350,56 @@
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-lg-7 mb-4">
-                                            <div class="review-form-wrapper">
-                                                <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
-                                                    Review</h3>
-                                                <p class="mb-3">Your email address will not be published. Required
-                                                    fields are marked *</p>
-                                                <form action="#" method="POST" class="review-form">
-                                                    <div class="rating-form">
-                                                        <label for="rating">Your Rating Of This Product :</label>
-                                                        <span class="rating-stars">
-                                                                <a class="star-1" href="#">1</a>
-                                                                <a class="star-2" href="#">2</a>
-                                                                <a class="star-3" href="#">3</a>
-                                                                <a class="star-4" href="#">4</a>
-                                                                <a class="star-5" href="#">5</a>
+
+                                            @if (!Auth::check())
+                                                <div class="review-form-wrapper">
+                                                    <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
+                                                        Review</h3>
+                                                    <p class="mb-3">Your email address will not be published. Required
+                                                        fields are marked *</p>
+                                                    @include('includes.message')
+                                                    <form action="/customer/review-store" method="POST"
+                                                          class="review-form">
+                                                        @csrf
+                                                        <div class="rating-form">
+                                                            <label for="rating">Your Rating Of This Product :</label>
+                                                            <span class="rating-stars">
+                                                                <a class="star-1" href="">1</a>
+                                                                <a class="star-2" href="">2</a>
+                                                                <a class="star-3" href="">3</a>
+                                                                <a class="star-4" href="">4</a>
+                                                                <a class="star-5" href="">5</a>
                                                             </span>
-                                                        <select name="rating" id="rating" required=""
-                                                                style="display: none;">
-                                                            <option value="">Rate…</option>
-                                                            <option value="5">Perfect</option>
-                                                            <option value="4">Good</option>
-                                                            <option value="3">Average</option>
-                                                            <option value="2">Not that bad</option>
-                                                            <option value="1">Very poor</option>
-                                                        </select>
-                                                    </div>
-                                                    <textarea cols="30" rows="6"
-                                                              placeholder="Write Your Review Here..." class="form-control"
-                                                              id="review"></textarea>
-                                                    <div class="row gutter-md">
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Your Name" id="author">
+                                                            <select name="score" id="rating" required=""
+                                                                    style="display: none;">
+                                                                <option value="">Rate…</option>
+                                                                <option value="5">Perfect</option>
+                                                                <option value="4">Good</option>
+                                                                <option value="3">Average</option>
+                                                                <option value="2">Not that bad</option>
+                                                                <option value="1">Very poor</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Your Email" id="email_1">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="checkbox" class="custom-checkbox"
-                                                               id="save-checkbox">
-                                                        <label for="save-checkbox">Save my name, email, and website
-                                                            in this browser for the next time I comment.</label>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-dark">Submit
-                                                        Review</button>
-                                                </form>
-                                            </div>
+                                                        <textarea cols="30" rows="6"
+                                                                  placeholder="Write Your Review Here..."
+                                                                  class="form-control" name="comment"
+                                                                  id="review">
+
+                                                        </textarea>
+                                                        <input type="hidden" name="product_id"
+                                                               value="{{$product->product_id}}">
+                                                        <button type="submit" class="btn btn-dark">Submit
+                                                            Review
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @else
+                                                <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
+                                                    Review, Please Sign-In</h3>
+                                                <a href="/common/assets/ajax/login.blade.php"
+                                                   class="btn btn-sm d-lg-show login sign-in"><i
+                                                        class="w-icon-account"></i>Sign In</a>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -389,6 +407,7 @@
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="show-all">
                                                 <ul class="comments list-style-none">
+                                                    @foreach($reviews as $res)
                                                     <li class="comment">
                                                         <div class="comment-body">
                                                             <figure class="comment-avatar">
@@ -397,9 +416,8 @@
                                                             </figure>
                                                             <div class="comment-content">
                                                                 <h4 class="comment-author">
-                                                                    <a href="#">John Doe</a>
-                                                                    <span class="comment-date">March 22, 2021 at
-                                                                            1:54 pm</span>
+                                                                    <a href="#">{{$res->customer_name}}</a>
+                                                                    <span class="comment-date">{{getDateFormat($res->created_at) }}</span>
                                                                 </h4>
                                                                 <div class="ratings-container comment-rating">
                                                                     <div class="ratings-full">
@@ -409,36 +427,11 @@
                                                                             class="tooltiptext tooltip-top"></span>
                                                                     </div>
                                                                 </div>
-                                                                <p>pellentesque habitant morbi tristique senectus
-                                                                    et. In dictum non consectetur a erat.
-                                                                    Nunc ultrices eros in cursus turpis massa
-                                                                    tincidunt ante in nibh mauris cursus mattis.
-                                                                    Cras ornare arcu dui vivamus arcu felis bibendum
-                                                                    ut tristique.</p>
-                                                                <div class="comment-action">
-                                                                    <a href="#"
-                                                                       class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                        <i class="far fa-thumbs-up"></i>Helpful (1)
-                                                                    </a>
-                                                                    <a href="#"
-                                                                       class="btn btn-dark btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
-                                                                        <i class="far fa-thumbs-down"></i>Unhelpful
-                                                                        (0)
-                                                                    </a>
-                                                                    <div class="review-image">
-                                                                        <a href="#">
-                                                                            <figure>
-                                                                                <img src="/common/assets/images/products/default/review-img-1.jpg"
-                                                                                     width="60" height="60"
-                                                                                     alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                                     data-zoom-image="/common/assets/images/products/default/review-img-1-800x900.jpg" />
-                                                                            </figure>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
+                                                                <p>{{$res->comment}}</p>
                                                             </div>
                                                         </div>
                                                     </li>
+                                                    @endforeach
 
                                                 </ul>
                                             </div>
@@ -523,7 +516,7 @@
                                     <div class="banner banner-fixed br-sm">
                                         <figure>
                                             <img src="/common/assets/images/shop/banner3.jpg" alt="Banner" width="266"
-                                                 height="220" style="background-color: #1D2D44;" />
+                                                 height="220" style="background-color: #1D2D44;"/>
                                         </figure>
                                         <div class="banner-content">
                                             <div class="banner-price-info font-weight-bolder text-white lh-1 ls-25">

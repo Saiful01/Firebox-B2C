@@ -4,6 +4,8 @@ app.controller('shoppingController', function ($scope, $http, $location) {
     $scope.cart_products = [];
     $scope.delivery_charge = 80;
     $scope.coupon_code = "";
+    $scope.size = "";
+    $scope.color = "";
     $scope.coupon_value = 0;
     $scope.quantity = 1;
     $scope.customer_address_type = "Home";
@@ -16,8 +18,9 @@ app.controller('shoppingController', function ($scope, $http, $location) {
             "featured_image": item.featured_image,
             "shop_id": item.shop_id,
             "quantity": $scope.quantity,
-            "size": "",
-            "color": "",
+            "qr_code": item.qr_code,
+            "size": $scope.size,
+            "color": $scope.color,
 
         };
         let cartProductList = localStorage.getItem('cart_product');
@@ -342,6 +345,13 @@ app.controller('shoppingController', function ($scope, $http, $location) {
 
         console.log("lollll");
 
+    }
+
+    $scope.colorChange=function (){
+        console.log($scope.color);
+    }
+    $scope.sizeChange=function (){
+        console.log($scope.size);
     }
 });
 

@@ -24,6 +24,8 @@
                             <tr>
                                 <th class="product-name"><span>Product</span></th>
                                 <th></th>
+                                <th>Code</th>
+                                <th>Size</th>
                                 <th class="product-price"><span>Price</span></th>
                                 <th class="product-quantity"><span>Quantity</span></th>
                                 <th class="product-subtotal"><span>Subtotal</span></th>
@@ -46,6 +48,16 @@
                                 <td class="product-name">
                                     <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
                                         @{{ product.product_name }}
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
+                                        @{{ product.qr_code }}
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
+                                        @{{ product.size }}
                                     </a>
                                 </td>
                                 <td class="product-price"><span class="amount">@{{ product.selling_price }}</span></td>
@@ -170,6 +182,10 @@
                                                 <div class="form-group">
                                                     <input class="form-control form-control-md" type="text" name="customer_phone"
                                                            placeholder="Phone" required>
+                                                </div>
+                                                <div class="form-group" style="display: none">
+                                                    <input class="form-control form-control-md" type="password" name="customer_password"
+                                                           placeholder="Password" value="123456" required>
                                                 </div>
                                                 <div class="form-group">
                                                 <textarea class="form-control form-control-md"
