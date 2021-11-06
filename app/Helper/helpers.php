@@ -690,6 +690,22 @@ function getInvoice()
     return random_int(100000, 999999);
    /* return time() . rand(1, 5);*/
 }
+function getReviewCount($id)
+{
+  return \App\ProductReview::where('product_id', $id)->count();
+}
+function getAverageRating($id)
+{
+    $reviews = \App\ProductReview::where('product_id', $id)->count();
+    $scores = \App\ProductReview::where('product_id', $id)->sum('score');
+    if ($reviews == 0 ){
+       return $average=0;
+    }
+    elseif($scores == 0 ){
+       return $average=0;
+    }
+    return  $average= ($scores / $reviews);
+}
 
 function getExpireLimit()
 {

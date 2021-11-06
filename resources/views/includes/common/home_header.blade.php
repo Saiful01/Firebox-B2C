@@ -15,7 +15,8 @@
                     <span class="delimiter d-lg-show">/</span>
                     <a href="/common/assets/ajax/login.blade.php" class="ml-0 d-lg-show login register">Register</a>
                 @else
-                    <a href="/customer/profile" class="d-lg-show">My Account</a>
+                    <a href="/customer/profile" class="btn btn-sm btn-danger d-lg-show">My Account</a>
+                    <a href="/customer/logout" class=" btn btn-sm btn-danger d-lg-show">Log Out</a>
                 @endif
             </div>
         </div>

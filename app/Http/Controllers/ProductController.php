@@ -139,6 +139,7 @@ class ProductController extends Controller
         $category_id = $request['category_id'];
         $shop_id = $request['shop_id'];
         $product = $request['product_name'];
+        $code = $request['qr_code'];
         $query = Product::join('product_categories', 'product_categories.category_id', '=', 'products.category_id')
             ->join('shops', 'shops.shop_id', '=', 'products.shop_id')
             ->select('products.*', 'shops.shop_name', 'product_categories.category_name_en')
@@ -146,6 +147,9 @@ class ProductController extends Controller
 
         if ($product != null) {
             $query->where('products.product_name', 'like', "%$request->product_name%");
+        }
+      if ($code != null) {
+            $query->where('products.qr_code', $code);
         }
 
         if ($category_id != null) {

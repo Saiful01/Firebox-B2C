@@ -90,7 +90,7 @@
                                 <th style="width:70px;">No.</th>
                                 <th>Item</th>
                                 <th>Image</th>
-                                <th>Shop Name</th>
+                                <th>Size</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Delivery Status</th>
@@ -107,7 +107,7 @@
                                     <td>{{ $i++ }}</td>
                                     <td><a href="/admin/product/details/{{$product->product_id}}">{{$product->product_name}}</a></td>
                                     <td><img src="{{$product->featured_image}}" width="50px"/></td>
-                                    <td>{{$product->shop_name}}</td>
+                                    <td>{{ getSizeFromId($product->size)}}</td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{$product->selling_price}}</td>
                                     <td>

@@ -8,14 +8,43 @@
                 <div class="card-body">
                     <form method="get" action="/admin/order/show" class="ng-pristine ng-valid">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <input type="text" name="order_invoice" class="form-control"
                                        placeholder='Order Invoice'>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <input type="text" name="customer_phone" class="form-control"
                                        placeholder='Customer Phone'>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <level> From</level>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" name="from" class="form-control"
+                                               placeholder='From'>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <level> To</level>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" name="to" class="form-control"
+                                               placeholder='To'>
+                                    </div>
+
+                                </div>
+
 
                             </div>
                    {{--         <div class="col-md-3">
@@ -30,7 +59,7 @@
                             </div>--}}
 
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Search
                                 </button>
 

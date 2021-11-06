@@ -47,6 +47,10 @@
 
                             </div>
                             <div class="col-md-3">
+                                <input type="text" name="qr_code" class="form-control" placeholder="Product Code"/>
+
+                            </div>
+                            <div class="col-md-3">
 
                                 <select class="form-control select2" name="category_id">
                                     <option value="">All Category</option>

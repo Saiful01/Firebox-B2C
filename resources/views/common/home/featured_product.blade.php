@@ -1,5 +1,5 @@
 <div class="title-link-wrapper title-deals appear-animate mb-4">
-    <h2 class="title title-link">Deals Of The Day</h2>
+    <h2 class="title title-link">Top Selling Product</h2>
     <div
         class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
         {{-- <label>Offer Ends in: </label>

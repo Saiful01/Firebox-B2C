@@ -17,6 +17,8 @@
                 <del class="old-price ">{{$product->regular_price}} BDT</del>
 
             </div>
+            @include('includes.product.avarage_ratings')
+
             <button class="btn btn-primary btn-cart" ng-click="addToCart({{$product}})">
                 <i class="w-icon-cart"></i>
                 <span>Add to Cart</span>

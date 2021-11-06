@@ -18,6 +18,8 @@ class OrderController extends Controller
 
     public function show(Request $request)
     {
+        $from= $request['from'];
+          $to= $request['to'];
 
         $query = Order:: leftJoin('customers', 'customers.customer_id', '=', 'orders.customer_id')->orderBy('orders.created_at', 'DESC');
         if ($request->customer_phone != null) {
@@ -26,11 +28,13 @@ class OrderController extends Controller
         if ($request->order_invoice != null) {
             $query = $query->where('orders.order_invoice', $request['order_invoice']);
         }
-        if ($request->is_whole_sale != null) {
 
-            $query = $query->where('orders.is_whole_sale', $request['is_whole_sale']);
+        if ($from != null) {
+
+            $query = $query->whereBetween('orders.created_at',[$from, $to]);
+
         }
-        $results = $query->paginate(50);
+       $results = $query->paginate(50);
         /*foreach ($results as $product) {
             $status = OrderStatus::where('order_item_id', $product->order_item_id)
                 ->orderBy('id', 'DESC')->first();

@@ -29,15 +29,33 @@ class CustomerController extends Controller
 
     public function profile()
     {
+        $id = Auth::guard('is_customer')->user()->customer_id;
 
-        $result = Customer::leftjoin('customer_addresses', 'customer_addresses.customer_id', '=', 'customers.customer_id')
-            ->where('customers.customer_id', Auth::guard('is_customer')->user()->customer_id)
-            ->select('customers.*', 'customer_addresses.division_id',
-                'customer_addresses.district_id', 'customer_addresses.upazila_id',
-                'customer_addresses.customer_address')
-            ->first();
+        $result = Customer::where('customers.customer_id', $id)->first();
+        $address = CustomerAddress::leftjoin('customers', 'customers.customer_id', '=', 'customer_addresses.customer_id')
+            ->where('customer_addresses.customer_id', $id)->get();
 
-        return view('common.customer.profile')->with('result', $result);
+        $orders = Order:: leftJoin('customers', 'customers.customer_id', '=', 'orders.customer_id')
+            ->orderBy('orders.created_at', 'DESC')->where('customers.customer_id', $id)->get();
+        foreach ($orders as $res) {
+            $order_item = OrderItem::leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
+                ->leftJoin('shops', 'shops.shop_id', '=', 'products.shop_id')
+                ->where('order_items.order_invoice', $res->order_invoice)
+                ->orderBy('order_items.shop_id')
+                ->select('shops.shop_name', 'order_items.*', 'products.product_name')
+                ->get();
+            foreach ($order_item as $item) {
+
+                $item->delivery_status = OrderStatus::where('order_item_id', $item->order_item_id)->first();
+
+            }
+        }
+
+
+        return view('common.customer.profile')
+            ->with('address', $address)
+            ->with('orders', $orders)
+            ->with('result', $result);
     }
 
     public function forgetPassword()
@@ -124,6 +142,7 @@ class CustomerController extends Controller
             $request['image'] = '/images/customer/' . $image_name;
 
         }
+
         try {
 
             Customer::where('customer_id', $request['customer_id'])->update($request->except(['_token', 'customer_image']));
@@ -136,36 +155,48 @@ class CustomerController extends Controller
 
     public function passwordUpdate(Request $request)
     {
+        // return $request->all();
 
-
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'new_password' => 'required',
             'new_confirm_password' => 'required|same:new_password'
-
         ]);
-
-        try {
-            Customer::find(Auth::guard('is_customer')->user()->customer_id)->update(['customer_password' => Hash::make($request->new_password)]);
-            return back()->with('success', "Successfully Customer profile updated");
-        } catch (Exception $exception) {
-            return back()->with('failed', $exception->getMessage());
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+            /*  return back()->with('failed', "Your New Password And Confirm Password Dis Not Match");*/
         }
+
+        $user = Customer::where('customer_id', $request['customer_id'])->first();
+        $password = $request['cur_password'];
+
+        if (Hash::check($password, $user->customer_password)) {
+            try {
+                Customer::find(Auth::guard('is_customer')->user()->customer_id)->update(['customer_password' => Hash::make($request->new_password)]);
+                return back()->with('success', "Successfully Customer Password updated");
+            } catch (Exception $exception) {
+                return back()->with('failed', $exception->getMessage());
+            }
+
+        } else {
+            return back()->with('failed', "Your Current Password Does Not Match");
+        }
+
 
     }
 
     public function addressUpdate(Request $request)
     {
-        // return $request->all();
+        //return $request->all();
         unset($request['_token']);
 
-        $customer = CustomerAddress::where('customer_id', $request['customer_id'])->first();
+        $customer = CustomerAddress::where('id', $request['id'])->first();
         if (is_null($customer)) {
             CustomerAddress::create($request->all());
-            return back()->with('success', "Successfully Customer profile updated");
+            return back()->with('success', "Successfully Address  updated");
 
         } else
             try {
-                CustomerAddress::find(Auth::guard('is_customer')->user()->customer_id)->update($request->all());
+                CustomerAddress::where('id', $request['id'])->update($request->except('_token', 'id'));
                 return back()->with('success', "Successfully Customer profile updated");
             } catch (Exception $exception) {
                 return back()->with('failed', $exception->getMessage());
@@ -219,7 +250,7 @@ class CustomerController extends Controller
          }*/
 
         if (Auth::guard('is_customer')->attempt($credentials)) {
-            return redirect($request['last_page']);
+            return redirect('/customer/profile');
         }
         // Customer::
 
@@ -241,7 +272,7 @@ class CustomerController extends Controller
 
     public function loginCheck(Request $request)
     {
-        return $request->all();
+        //  return $request->all();
         $credentials = [
             'customer_phone' => $request['phone'],
             'password' => $request['password'],
@@ -756,12 +787,12 @@ class CustomerController extends Controller
 
     public function reviewStore(Request $request)
     {
-      //  return $request->all();
-        $id=Auth::guard('is_customer')->user()->customer_id;
-        $orders= Order::where('customer_id', $id )->get();
-        foreach ($orders as $res){
-            $exist= OrderItem::where('product_id', $request['product_id'])->first();
-            if (is_null($exist)){
+        //  return $request->all();
+        $id = Auth::guard('is_customer')->user()->customer_id;
+        $orders = Order::where('customer_id', $id)->get();
+        foreach ($orders as $res) {
+            $exist = OrderItem::where('product_id', $request['product_id'])->first();
+            if (is_null($exist)) {
                 return back()->with('failed', "You Cannot Review This Product Because You haven't ordered This Product");
             }
 

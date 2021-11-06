@@ -75,6 +75,7 @@ class Controller extends BaseController
 
     public function details($id, $name)
     {
+
         $product = Product::where('product_id', $id)->first();
         if (is_null($product)) {
             return Redirect::to('/');

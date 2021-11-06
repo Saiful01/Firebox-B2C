@@ -84,15 +84,7 @@
                                     <div class="product-price">
                                         <ins class="new-price">{{$product->selling_price}}BDT</ins>
                                     </div>
-
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 100%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="#product-tab-reviews" class="rating-reviews scroll-to">(3
-                                            Reviews)</a>
-                                    </div>
+                                    @include('includes.product.avarage_ratings')
 
                                     <div class="product-short-desc">
                                         {!! $product->product_details !!}
@@ -186,7 +178,8 @@
                                      <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
                                  </li>--}}
                                 <li class="nav-item">
-                                    <a href="#product-tab-reviews" class="nav-link">Customer Reviews (3)</a>
+                                    <a href="#product-tab-reviews" class="nav-link">Customer Reviews
+                                        ({{getReviewCount($product->product_id)}})</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -211,81 +204,75 @@
                                     </div>
 
                                 </div>
-                                <div class="tab-pane" id="product-tab-vendor">
-                                    <div class="row mb-3">
-                                        <div class="col-md-6 mb-4">
-                                            <figure class="vendor-banner br-sm">
-                                                <img src="/common/assets/images/products/vendor-banner.jpg"
-                                                     alt="Vendor Banner" width="610" height="295"
-                                                     style="background-color: #353B55;"/>
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-6 pl-2 pl-md-6 mb-4">
-                                            <div class="vendor-user">
-                                                <figure class="vendor-logo mr-4">
-                                                    <a href="#">
-                                                        <img src="/common/assets/images/products/vendor-logo.jpg"
-                                                             alt="Vendor Logo" width="80" height="80"/>
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <div class="vendor-name"><a href="#">Jone Doe</a></div>
-                                                    <div class="ratings-container">
-                                                        <div class="ratings-full">
-                                                            <span class="ratings" style="width: 90%;"></span>
-                                                            <span class="tooltiptext tooltip-top"></span>
-                                                        </div>
-                                                        <a href="#" class="rating-reviews">(32 Reviews)</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <ul class="vendor-info list-style-none">
-                                                <li class="store-name">
-                                                    <label>Store Name:</label>
-                                                    <span class="detail">OAIO Store</span>
-                                                </li>
-                                                <li class="store-address">
-                                                    <label>Address:</label>
-                                                    <span class="detail">Steven Street, El Carjon, CA 92020, United
-                                                            States (US)</span>
-                                                </li>
-                                                <li class="store-phone">
-                                                    <label>Phone:</label>
-                                                    <a href="#tel:">1234567890</a>
-                                                </li>
-                                            </ul>
-                                            <a href="vendor-dokan-store.html"
-                                               class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
-                                                Store<i class="w-icon-long-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <p class="mb-5">Details</p>
+                                {{-- <div class="tab-pane" id="product-tab-vendor">
+                                     <div class="row mb-3">
+                                         <div class="col-md-6 mb-4">
+                                             <figure class="vendor-banner br-sm">
+                                                 <img src="/common/assets/images/products/vendor-banner.jpg"
+                                                      alt="Vendor Banner" width="610" height="295"
+                                                      style="background-color: #353B55;"/>
+                                             </figure>
+                                         </div>
+                                         <div class="col-md-6 pl-2 pl-md-6 mb-4">
+                                             <div class="vendor-user">
+                                                 <figure class="vendor-logo mr-4">
+                                                     <a href="#">
+                                                         <img src="/common/assets/images/products/vendor-logo.jpg"
+                                                              alt="Vendor Logo" width="80" height="80"/>
+                                                     </a>
+                                                 </figure>
+                                                 <div>
+                                                     <div class="vendor-name"><a href="#">Jone Doe</a></div>
+                                                     <div class="ratings-container">
+                                                         <div class="ratings-full">
+                                                             <span class="ratings" style="width: 90%;"></span>
+                                                             <span class="tooltiptext tooltip-top"></span>
+                                                         </div>
+                                                         <a href="#" class="rating-reviews">(32 Reviews)</a>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <ul class="vendor-info list-style-none">
+                                                 <li class="store-name">
+                                                     <label>Store Name:</label>
+                                                     <span class="detail">OAIO Store</span>
+                                                 </li>
+                                                 <li class="store-address">
+                                                     <label>Address:</label>
+                                                     <span class="detail">Steven Street, El Carjon, CA 92020, United
+                                                             States (US)</span>
+                                                 </li>
+                                                 <li class="store-phone">
+                                                     <label>Phone:</label>
+                                                     <a href="#tel:">1234567890</a>
+                                                 </li>
+                                             </ul>
+                                             <a href="vendor-dokan-store.html"
+                                                class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
+                                                 Store<i class="w-icon-long-arrow-right"></i></a>
+                                         </div>
+                                     </div>
+                                     <p class="mb-5">Details</p>
 
-                                </div>
+                                 </div>--}}
                                 <div class="tab-pane" id="product-tab-reviews">
                                     <div class="row mb-4">
                                         <div class="col-xl-4 col-lg-5 mb-4">
                                             <div class="ratings-wrapper">
                                                 <div class="avg-rating-container">
-                                                    <h4 class="avg-mark font-weight-bolder ls-50">3.3</h4>
+                                                    <h4 class="avg-mark font-weight-bolder ls-50">{{getAverageRating($product->product_id)}}</h4>
                                                     <div class="avg-rating">
                                                         <p class="text-dark mb-1">Average Rating</p>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 60%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                            <a href="#" class="rating-reviews">(3 Reviews)</a>
-                                                        </div>
+                                                        @include('includes.product.avarage_ratings')
                                                     </div>
                                                 </div>
-                                                <div
-                                                    class="ratings-value d-flex align-items-center text-dark ls-25">
-                                                        <span
-                                                            class="text-dark font-weight-bold">66.7%</span>Recommended<span
-                                                        class="count">(2 of 3)</span>
-                                                </div>
-                                                <div class="ratings-list">
+                                                {{--    <div
+                                                        class="ratings-value d-flex align-items-center text-dark ls-25">
+                                                            <span
+                                                                class="text-dark font-weight-bold">66.7%</span>Recommended<span
+                                                            class="count">(2 of 3)</span>
+                                                    </div>--}}
+                                                {{--<div class="ratings-list">
                                                     <div class="ratings-container">
                                                         <div class="ratings-full">
                                                             <span class="ratings" style="width: 100%;"></span>
@@ -346,7 +333,7 @@
                                                             <mark>0%</mark>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>--}}
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-lg-7 mb-4">
@@ -408,29 +395,31 @@
                                             <div class="tab-pane active" id="show-all">
                                                 <ul class="comments list-style-none">
                                                     @foreach($reviews as $res)
-                                                    <li class="comment">
-                                                        <div class="comment-body">
-                                                            <figure class="comment-avatar">
-                                                                <img src="/common/assets/images/agents/1-100x100.png"
-                                                                     alt="Commenter Avatar" width="90" height="90">
-                                                            </figure>
-                                                            <div class="comment-content">
-                                                                <h4 class="comment-author">
-                                                                    <a href="#">{{$res->customer_name}}</a>
-                                                                    <span class="comment-date">{{getDateFormat($res->created_at) }}</span>
-                                                                </h4>
-                                                                <div class="ratings-container comment-rating">
-                                                                    <div class="ratings-full">
+                                                        <li class="comment">
+                                                            <div class="comment-body">
+                                                                <figure class="comment-avatar">
+                                                                    <img
+                                                                        src="/common/assets/images/agents/1-100x100.png"
+                                                                        alt="Commenter Avatar" width="90" height="90">
+                                                                </figure>
+                                                                <div class="comment-content">
+                                                                    <h4 class="comment-author">
+                                                                        <a href="#">{{$res->customer_name}}</a>
+                                                                        <span
+                                                                            class="comment-date">{{getDateFormat($res->created_at) }}</span>
+                                                                    </h4>
+                                                                    <div class="ratings-container comment-rating">
+                                                                        <div class="ratings-full">
                                                                             <span class="ratings"
                                                                                   style="width: 60%;"></span>
-                                                                        <span
-                                                                            class="tooltiptext tooltip-top"></span>
+                                                                            <span
+                                                                                class="tooltiptext tooltip-top"></span>
+                                                                        </div>
                                                                     </div>
+                                                                    <p>{{$res->comment}}</p>
                                                                 </div>
-                                                                <p>{{$res->comment}}</p>
                                                             </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
                                                     @endforeach
 
                                                 </ul>
