@@ -90,6 +90,7 @@
                                 <th style="width:70px;">No.</th>
                                 <th>Item</th>
                                 <th>Image</th>
+                                <th>Code</th>
                                 <th>Size</th>
                                 <th>Color</th>
                                 <th>Quantity</th>
@@ -108,6 +109,7 @@
                                     <td>{{ $i++ }}</td>
                                     <td><a href="/admin/product/details/{{$product->product_id}}">{{$product->product_name}}</a></td>
                                     <td><img src="{{$product->featured_image}}" width="50px"/></td>
+                                    <td>{{ $product->qr_code}}</td>
                                     <td>{{ getSizeFromId($product->size)}}</td>
                                     <td>{{ getColorFromId($product->color)}}</td>
                                     <td>{{$product->quantity}}</td>

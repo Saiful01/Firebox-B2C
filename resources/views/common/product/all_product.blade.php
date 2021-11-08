@@ -35,7 +35,7 @@
                 <!-- Start of Shop Category -->
                 <div class="shop-default-category category-ellipse-section mb-6">
                     <div
-                        class="owl-carousel owl-theme row gutter-lg cols-xl-8 cols-lg-7 cols-md-6 cols-sm-4 cols-xs-3 cols-2"
+                        class=" owl-theme appear-animate row cols-lg-6 cols-md-4 cols-sm-3 cols-2 mb-6"
                         data-owl-options="{
                             'nav': false,
                             'dots': true,

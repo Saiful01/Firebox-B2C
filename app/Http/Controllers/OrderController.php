@@ -98,7 +98,7 @@ class OrderController extends Controller
             ->leftJoin('shops', 'shops.shop_id', '=', 'products.shop_id')
             ->where('order_items.order_invoice', $invoice_number)
             ->orderBy('order_items.shop_id')
-            ->select('shops.shop_name', 'order_items.*', 'products.product_name', 'products.featured_image')
+            ->select('shops.shop_name', 'order_items.*', 'products.product_name', 'products.featured_image', 'products.qr_code')
             ->get();
 
 

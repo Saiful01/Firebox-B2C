@@ -437,7 +437,7 @@
                                 <a href="/" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
                                     Products<i class="w-icon-long-arrow-right"></i></a>
                             </div>
-                            <div class="owl-carousel owl-theme row cols-lg-3 cols-md-4 cols-sm-3 cols-2"
+                            <div class="owl-carousel owl-theme row cols-lg-6 cols-md-4 cols-sm-3 cols-2"
                                  data-owl-options="{
                                     'nav': false,
                                     'dots': false,

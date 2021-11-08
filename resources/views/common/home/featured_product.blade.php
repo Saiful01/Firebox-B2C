@@ -9,7 +9,7 @@
     </div>
     <a href="#" class="ml-0">More Products<i class="w-icon-long-arrow-right"></i></a>
 </div>
-<div class="owl-carousel owl-theme appear-animate row cols-lg-5 cols-md-4 cols-sm-3 cols-2 mb-6"
+<div class="owl-carousel owl-theme appear-animate row cols-lg-6 cols-md-4 cols-sm-3 cols-2 mb-6"
      data-owl-options="{
                     'nav': false,
                     'dots': true,
