@@ -15,7 +15,7 @@ class CreateOrderStatusesTable extends Migration
     {
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_item_id');
+            $table->unsignedBigInteger('order_invoice');
             $table->integer('delivery_status')->default(0);//Pending=0, Accepted=1, Ready For Pick=2, On The Way=3, Delivered=4, Returned=5
             $table->timestamps();
          /*   $table->foreign('order_item_id')->references('order_item_id')->on('order_items');*/

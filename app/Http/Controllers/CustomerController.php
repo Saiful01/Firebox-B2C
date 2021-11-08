@@ -37,19 +37,18 @@ class CustomerController extends Controller
 
         $orders = Order:: leftJoin('customers', 'customers.customer_id', '=', 'orders.customer_id')
             ->orderBy('orders.created_at', 'DESC')->where('customers.customer_id', $id)->get();
-        foreach ($orders as $res) {
-            $order_item = OrderItem::leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
-                ->leftJoin('shops', 'shops.shop_id', '=', 'products.shop_id')
-                ->where('order_items.order_invoice', $res->order_invoice)
-                ->orderBy('order_items.shop_id')
-                ->select('shops.shop_name', 'order_items.*', 'products.product_name')
-                ->get();
-            foreach ($order_item as $item) {
 
-                $item->delivery_status = OrderStatus::where('order_item_id', $item->order_item_id)->first();
-
+        foreach ($orders as $product) {
+            $status = OrderStatus::where('order_invoice', $product->order_invoice)
+                ->orderBy('id', 'DESC')->first();
+            if (is_null($status)) {
+                $product->status = "Previous Order";
+            } else {
+                $product->status = getDeliveryStatus($status->delivery_status);
             }
+
         }
+      //  return $orders;
 
 
         return view('common.customer.profile')
@@ -440,7 +439,7 @@ class CustomerController extends Controller
     public function orderSave(Request $request)
     {
 
-        //return $request->all();
+       // return $request->all();
 
         if ($request['customer_address'] == null && $request['address_id'] == null) {
             // return "Null";
@@ -511,6 +510,9 @@ class CustomerController extends Controller
         //return $request['products'];
         foreach ($products as $item) {
 
+            $color=getColorIdFromName( $item['color']);
+            $size=getSizeIdFromName( $item['size']);
+
             $total_price = $total_price + ($item['selling_price'] * $item['quantity']);
             $total_delivery_charge = $request['delivery_charge'];
             $order_array = [
@@ -519,8 +521,8 @@ class CustomerController extends Controller
                 'quantity' => $item['quantity'],
                 'order_invoice' => $order_invoice,
                 'total_price' => $item['selling_price'] * $item['quantity'],
-                'size' => null,
-                'color' => null,
+                'size' => $size,
+                'color' => $color,
                 'shop_id' => $item['shop_id'],
                 'commission_rate' => getCommissionRate($item['shop_id']),
                 'delivery_charge' => $total_delivery_charge,
@@ -533,7 +535,7 @@ class CustomerController extends Controller
                 return getApiErrorResponse(400, $exception->getMessage(), "");
             }
             $status_array = [
-                'order_item_id' => $order_item_id,
+                'order_invoice' => $order_invoice,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

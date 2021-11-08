@@ -143,19 +143,27 @@
                                         <td class="order-id">#{{$res->order_invoice}}</td>
                                         <td class="order-date">{{getDateFormat($res->created_at) }}</td>
                                         <td class="order-status">
-                                            @if($res->delivery_status== 0) <span class="badge badge-pill">Pending</span>
-                                            @elseif($res->delivery_status== 1) <span
-                                                class="badge badge-pill">Accepted</span>
-                                            @elseif($res->delivery_status== 2) <span class="badge badge-pill">Ready For Pickup</span>
-                                            @elseif($res->delivery_status== 3) <span
-                                                class="badge badge-pill">On The Way</span>
-                                            @elseif($res->delivery_status== 4) <span
-                                                class="badge badge-pill">On The Way</span>
-                                            @elseif($res->delivery_status== 5) <span
-                                                class="badge badge-pill">Returned</span>
-                                            @else
+                                            @if($res->status== "Previous Order")
                                                 <span
-                                                    class="badge badge-pill">Cancelled</span>
+                                                    class="badge badge-pill badge-soft-dark font-size-12">Previous Order</span>
+                                            @elseif($res->status=="Pending")
+                                                <span
+                                                    class="badge badge-pill badge-soft-Primary font-size-12">Pending</span>
+                                            @elseif($res->status=="Accepted")
+                                                <span class="badge badge-pill badge-soft-info font-size-12">Accepted</span>
+                                            @elseif($res->status=="Ready For Pickup")
+                                                <span class="badge badge-pill badge-soft-warning font-size-12">Ready For Pickup</span>
+                                            @elseif($res->status=="On The Way")
+                                                <span
+                                                    class="badge badge-pill badge-soft-secondary font-size-12">On The Way</span>
+                                            @elseif($res->status=="Delivered")
+                                                <span
+                                                    class="badge badge-pill badge-soft-success font-size-12">Delivered</span>
+                                            @elseif($res->status=="Returned")
+                                                <span
+                                                    class="badge badge-pill badge-soft-danger font-size-12">Returned</span>
+                                            @else
+
 
                                             @endif
 
@@ -201,7 +209,7 @@
                                         @csrf
                                         <input type="hidden" name="id" value="{{$res->id}}">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label>Address Type*</label>
                                                     <input type="text" name="customer_address_type"
@@ -210,7 +218,7 @@
                                                            value="{{$res->customer_address_type}}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="form-group mb-6">
                                                     <label for="email_1">Address *</label>
                                                     <input type="text" name="customer_address"
@@ -218,12 +226,15 @@
                                                            value="{{$res->customer_address}}">
                                                 </div>
                                             </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-dark btn-rounded btn-sm mb-4 mt-5">Save
+                                                    Changes
+                                                </button>
+                                            </div>
 
                                         </div>
 
-                                        <button type="submit" class="btn btn-dark btn-rounded btn-sm mb-4">Save
-                                            Changes
-                                        </button>
+
                                     </form>
                                 </div>
                             @endforeach

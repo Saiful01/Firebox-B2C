@@ -77,7 +77,7 @@
             <div class="col-md-6">
                 <label for="price">Weight</label>
                 <input id="price" name="weight" type="text" class="form-control"
-                       required>
+                       >
 
             </div>
             <div class="col-md-6">

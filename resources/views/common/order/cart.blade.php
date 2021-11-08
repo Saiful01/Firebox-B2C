@@ -23,9 +23,10 @@
                             <thead>
                             <tr>
                                 <th class="product-name"><span>Product</span></th>
-                                <th></th>
+                                {{--<th></th>--}}
                                 <th>Code</th>
                                 <th>Size</th>
+                                <th>Color</th>
                                 <th class="product-price"><span>Price</span></th>
                                 <th class="product-quantity"><span>Quantity</span></th>
                                 <th class="product-subtotal"><span>Subtotal</span></th>
@@ -36,28 +37,36 @@
                                 <td class="product-thumbnail">
                                     <div class="p-relative">
                                         <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
-                                            <figure>
+                                           {{-- <figure>
                                                 <img src="@{{ product.featured_image }}" alt="product" width="300"
                                                      height="338">
-                                            </figure>
+                                            </figure>--}}
+
+                                                @{{ product.product_name }}
+
                                         </a>
                                         <button type="submit" class="btn btn-close" ng-click="deleteItem (product)"><i
                                                 class="fas fa-times"></i></button>
                                     </div>
                                 </td>
-                                <td class="product-name">
+                               {{-- <td class="product-name">
                                     <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
                                         @{{ product.product_name }}
                                     </a>
-                                </td>
+                                </td>--}}
                                 <td class="product-name">
-                                    <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
+                                    <a href="">
                                         @{{ product.qr_code }}
                                     </a>
                                 </td>
                                 <td class="product-name">
-                                    <a href="/product/@{{ product.product_id }}/@{{product.product_name}}">
+                                    <a href="">
                                         @{{ product.size }}
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="">
+                                        @{{ product.color }}
                                     </a>
                                 </td>
                                 <td class="product-price"><span class="amount">@{{ product.selling_price }}</span></td>

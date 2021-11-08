@@ -91,13 +91,14 @@
                                 <th>Item</th>
                                 <th>Image</th>
                                 <th>Size</th>
+                                <th>Color</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
-                                <th>Delivery Status</th>
+                           {{--     <th>Delivery Status</th>--}}
                                 <th>Total</th>
-                                <th class="text-right">Commission</th>
-                                <th>Status Details</th>
-                                <th>Action</th>
+                            {{--    <th class="text-right">Commission</th>--}}
+                                {{--<th>Status Details</th>--}}
+                                {{--<th>Action</th>--}}
                             </tr>
                             </thead>
                             <tbody>
@@ -108,22 +109,23 @@
                                     <td><a href="/admin/product/details/{{$product->product_id}}">{{$product->product_name}}</a></td>
                                     <td><img src="{{$product->featured_image}}" width="50px"/></td>
                                     <td>{{ getSizeFromId($product->size)}}</td>
+                                    <td>{{ getColorFromId($product->color)}}</td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{$product->selling_price}}</td>
-                                    <td>
+                                   {{-- <td>
                                         {{$product->status}}
-                                    </td>
+                                    </td>--}}
                                     <td>৳ {{$product->total_price}}</td>
-                                    <td class="text-right">{{$product->commission}}</td>
+                                  {{--  <td class="text-right">{{$product->commission}}</td>--}}
 
 
-                                    <td>
+                                  {{--  <td>
                                         <a href="/admin/order-status/history/{{$product->order_item_id}}" type="button"
                                            class="btn btn-primary btn-sm btn-rounded waves-effect waves-light text-white">
                                             Status Details
                                         </a>
-                                    </td>
-                                    <td>
+                                    </td>--}}
+                               {{--     <td>
                                         <div class="btn-group mr-1 mt-2">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,7 +134,7 @@
                                             @include('includes.delivery_status.index')
                                         </div>
 
-                                    </td>
+                                    </td>--}}
                                 </tr>
 
                             @endforeach
@@ -169,9 +171,9 @@
                     </div>
                     <div class="d-print-none mt-2">
                         <div class="float-right">
-                           {{-- <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light mr-1"><i
-                                    class="fa fa-print"></i></a>--}}
-                             <a href="/admin/order-invoice/print/{{$order->order_invoice}}" class="btn btn-primary w-md waves-effect waves-light">Print Invoice</a>
+                            <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light mr-1"><i
+                                    class="fa fa-print"></i></a>
+                             {{--<a href="/admin/order-invoice/print/{{$order->order_invoice}}" class="btn btn-primary w-md waves-effect waves-light">Print Invoice</a>--}}
                         </div>
                     </div>
                 </div>

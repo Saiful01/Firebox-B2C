@@ -128,7 +128,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/order/update', [OrderController::class, 'update']);
 
     //delivery status
-    Route::get('/admin/order-status/update/{id}/{value}', [OrderStatusController::class, 'statusUpdate']);
+    Route::get('/admin/order-status/update/{invoice}/{value}', [OrderStatusController::class, 'statusUpdate']);
 
     //Manage Coupon
     Route::get('/admin/coupon/show', [CouponController::class, 'show']);
@@ -366,7 +366,7 @@ Route::group(['prefix' => "merchant", 'middleware' => ['merchant']], function ()
 
 
     //delivery Status Change
-    Route::get('/order-status/update/{id}/{value}', [OrderStatusController::class, 'MerchantStatusUpdate']);
+    Route::get('/order-status/update/{invoice}/{value}', [OrderStatusController::class, 'MerchantStatusUpdate']);
 
     //video show
     Route::get('/video/show', [VideoController::class, 'merchantShow']);

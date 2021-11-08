@@ -18,10 +18,18 @@ class OrderController extends Controller
 
     public function show(Request $request)
     {
-        $from= $request['from'];
-          $to= $request['to'];
 
-        $query = Order:: leftJoin('customers', 'customers.customer_id', '=', 'orders.customer_id')->orderBy('orders.created_at', 'DESC');
+        $from = $request['from'];
+        $to = $request['to'];
+        $status = $request['order_status'];
+
+        $query = Order:: leftJoin('customers', 'customers.customer_id', '=', 'orders.customer_id')
+            ->leftJoin('order_statuses', 'order_statuses.order_invoice', '=', 'orders.order_invoice')
+            ->orderBy('orders.created_at', 'DESC')
+            ->select('orders.*', 'customers.customer_name', 'customers.customer_phone', 'order_statuses.delivery_status');
+        if ($status != null) {
+            $query = $query->where('order_statuses.delivery_status', $status);
+        }
         if ($request->customer_phone != null) {
             $query = $query->where('customers.customer_phone', $request['customer_phone']);
         }
@@ -31,24 +39,21 @@ class OrderController extends Controller
 
         if ($from != null) {
 
-            $query = $query->whereBetween('orders.created_at',[$from, $to]);
+            $query = $query->whereBetween('orders.created_at', [$from, $to]);
 
         }
-       $results = $query->paginate(50);
-        /*foreach ($results as $product) {
-            $status = OrderStatus::where('order_item_id', $product->order_item_id)
+        $results = $query->paginate(50);
+        foreach ($results as $product) {
+            $status = OrderStatus::where('order_invoice', $product->order_invoice)
                 ->orderBy('id', 'DESC')->first();
             if (is_null($status)) {
-                $product->status = "Pending";
+                $product->status = "Previous Order";
             } else {
                 $product->status = getDeliveryStatus($status->delivery_status);
             }
 
-
-            $product->commission = ($product->total_price * $product->commission_rate) / 100;
-
-
-        }*/
+        }
+        //return $results;
 
 
         return view('admin.order.show')
@@ -88,38 +93,29 @@ class OrderController extends Controller
             ->select('orders.*', 'customers.customer_name', 'customers.customer_phone')
             ->first();
 
-        if ($order->is_whole_sale == 1) {
 
-            $order_item = OrderItem::leftJoin('whole_sales', 'whole_sales.whole_sales_product_id', '=', 'order_items.product_id')
-                ->leftJoin('shops', 'shops.shop_id', '=', 'whole_sales.shop_id')
-                ->where('order_items.order_invoice', $invoice_number)
-                ->orderBy('order_items.shop_id')
-                ->select('shops.shop_name', 'order_items.*', 'whole_sales.product_name')
-                ->get();
-        } else {
-            $order_item = OrderItem::leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
-                ->leftJoin('shops', 'shops.shop_id', '=', 'products.shop_id')
-                ->where('order_items.order_invoice', $invoice_number)
-                ->orderBy('order_items.shop_id')
-                ->select('shops.shop_name', 'order_items.*', 'products.product_name')
-                ->get();
-        }
+        $order_item = OrderItem::leftJoin('products', 'products.product_id', '=', 'order_items.product_id')
+            ->leftJoin('shops', 'shops.shop_id', '=', 'products.shop_id')
+            ->where('order_items.order_invoice', $invoice_number)
+            ->orderBy('order_items.shop_id')
+            ->select('shops.shop_name', 'order_items.*', 'products.product_name', 'products.featured_image')
+            ->get();
 
 
-        foreach ($order_item as $product) {
-            $status = OrderStatus::where('order_item_id', $product->order_item_id)
-                ->orderBy('id', 'DESC')->first();
-            if (is_null($status)) {
-                $product->status = "Pending";
-            } else {
-                $product->status = getDeliveryStatus($status->delivery_status);
-            }
+        /*  foreach ($order_item as $product) {
+              $status = OrderStatus::where('order_invoice', $invoice_number)
+                  ->orderBy('id', 'DESC')->first();
+              if (is_null($status)) {
+                  $product->status = "Pending";
+              } else {
+                  $product->status = getDeliveryStatus($status->delivery_status);
+              }
 
 
-            $product->commission = ($product->total_price * $product->commission_rate) / 100;
+              $product->commission = ($product->total_price * $product->commission_rate) / 100;
 
 
-        }
+          }*/
 
         $shipping_address = CustomerAddress::where('customer_id', $order->customer_id)->first();
         $payment_data = OrderPayment::where('tran_id', $invoice_number)->first();
@@ -148,7 +144,7 @@ class OrderController extends Controller
             ->select('shops.shop_name', 'order_items.*', 'products.product_name')
             ->get();
         foreach ($order_item as $product) {
-            $status = OrderStatus::where('order_item_id', $product->order_item_id)
+            $status = OrderStatus::where('order_invoice', $invoice_number)
                 ->orderBy('id', 'DESC')->first();
             if (is_null($status)) {
                 $product->status = "Pending";
@@ -228,7 +224,6 @@ class OrderController extends Controller
         }
 
 
-
         if ($order->is_whole_sale == 1) {
 
             $order_item = OrderItem::leftJoin('whole_sales', 'whole_sales.whole_sales_product_id', '=', 'order_items.product_id')
@@ -245,11 +240,8 @@ class OrderController extends Controller
         }
 
 
-
-
-
         foreach ($order_item as $product) {
-            $status = OrderStatus::where('order_item_id', $product->order_item_id)
+            $status = OrderStatus::where('order_invoice', $invoice_number)
                 ->orderBy('id', 'DESC')
                 ->first();
             if (is_null($status)) {
@@ -307,15 +299,15 @@ class OrderController extends Controller
     }
 
 
-    public function orderDeliveryStatus($id)
+    public function orderDeliveryStatus($invoice_number)
     {
-        $status = OrderStatus::where('order_item_id', $id)->get();
+        $status = OrderStatus::where('order_invoice', $invoice_number)->get();
         return view('admin.shop.order_delivered')->with('status', $status);
     }
 
-    public function merchantOrderDeliveryStatus($id)
+    public function merchantOrderDeliveryStatus($invoice_number)
     {
-        $status = OrderStatus::where('order_item_id', $id)->get();
+        $status = OrderStatus::where('order_invoice', $invoice_number)->get();
         return view('merchant.order.order_delivered')->with('status', $status);
     }
 

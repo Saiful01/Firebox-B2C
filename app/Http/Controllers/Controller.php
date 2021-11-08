@@ -81,7 +81,7 @@ class Controller extends BaseController
             return Redirect::to('/');
         }
         $images = [];
-        $related_products = Product::limit(10)->get();
+        $related_products = Product::where('category_id', $product->category_id)->limit(10)->get();
         $reviews= ProductReview::Join('customers', 'product_reviews.customer_id', '=', 'customers.customer_id')
           ->where('product_id', $id)->OrderBy('product_reviews.created_at', "DESC")->limit(4)->get();
         return view('common.product.details')
@@ -100,8 +100,8 @@ class Controller extends BaseController
         foreach ($categories as $category) {
             $category->category_name = $category->category_name_en;
             $category->category_link = "/categories/" . $category->parent_category_id . "/" . getTitleToUrl($category->category_name_en);
-            if ($category->featured_image != null) {
-                $category->category_image = $category->featured_image;
+            if ($category->category_image != null) {
+                $category->category_image = $category->category_image;
             } else {
                 $category->category_image = "/images/no_image.jpg";
             }

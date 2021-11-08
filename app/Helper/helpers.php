@@ -188,6 +188,16 @@ function getSizeFromId($id)
     /* $status_array = getSize();
      return $status_array[$id];*/
 }
+function getSizeIdFromName($name)
+{
+    if ($name == null) {
+        return null;
+    }
+    return \App\Size::where('size_name', $name)->first()->size_id;
+
+    /* $status_array = getSize();
+     return $status_array[$id];*/
+}
 
 
 function getColorFromId($id)
@@ -197,6 +207,18 @@ function getColorFromId($id)
         return "-";
     }
     return \App\Color::where('color_id', $id)->first()->color_name;
+
+    /* $status_array = getColor();
+
+     return $status_array[$id];*/
+}
+
+function getColorIdFromName($name)
+{
+    if ($name == null) {
+        return null;
+    }
+    return \App\Color::where('color_name', $name)->first()->color_id;
 
     /* $status_array = getColor();
 
@@ -688,23 +710,24 @@ function getAllCategories()
 function getInvoice()
 {
     return random_int(100000, 999999);
-   /* return time() . rand(1, 5);*/
+    /* return time() . rand(1, 5);*/
 }
+
 function getReviewCount($id)
 {
-  return \App\ProductReview::where('product_id', $id)->count();
+    return \App\ProductReview::where('product_id', $id)->count();
 }
+
 function getAverageRating($id)
 {
     $reviews = \App\ProductReview::where('product_id', $id)->count();
     $scores = \App\ProductReview::where('product_id', $id)->sum('score');
-    if ($reviews == 0 ){
-       return $average=0;
+    if ($reviews == 0) {
+        return $average = 0;
+    } elseif ($scores == 0) {
+        return $average = 0;
     }
-    elseif($scores == 0 ){
-       return $average=0;
-    }
-    return  $average= ($scores / $reviews);
+    return $average = ($scores / $reviews);
 }
 
 function getExpireLimit()

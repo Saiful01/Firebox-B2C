@@ -8,66 +8,51 @@
                 <div class="card-body">
                     <form method="get" action="/admin/order/show" class="ng-pristine ng-valid">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <input type="text" name="order_invoice" class="form-control"
                                        placeholder='Order Invoice'>
 
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <input type="text" name="customer_phone" class="form-control"
                                        placeholder='Customer Phone'>
 
                             </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <level> From</level>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="date" name="from" class="form-control"
-                                               placeholder='From'>
-                                    </div>
+                            <div class="col-md-4">
 
-                                </div>
-
-
-
-                            </div>
-                            <div class="col-md-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <level> To</level>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="date" name="to" class="form-control"
-                                               placeholder='To'>
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-                   {{--         <div class="col-md-3">
-
-                                <select class="form-control" name="is_whole_sale">
+                                <select class="form-control select2" name="order_status">
                                     <option value="">All</option>
-                                    <option value="1">Whole Sale</option>
-                                    <option value="0">Retail</option>
+                                    <option value="0">Pending</option>
+                                    <option value="1">Accepted</option>
+                                    <option value="2">Ready For Pickup</option>
+                                    <option value="3">On The Way</option>
+                                    <option value="4">Delivered</option>
+                                    <option value="5">Returned</option>
 
                                 </select>
 
-                            </div>--}}
-
-
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-1 waves-effect waves-light">Search
-                                </button>
 
                             </div>
-
-
                         </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <level> From</level>
+                                <input type="date" name="from" class="form-control" placeholder='From'>
 
+                            </div>
+                            <div class="col-md-4">
+                                <level> To</level>
+                                <input type="date" name="to" class="form-control"
+                                       placeholder='To'>
+
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="mt-3 btn btn-primary mr-1 waves-effect waves-light">Search
+                                </button>
+
+
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -95,14 +80,14 @@
                                 <th>Customer Phone</th>
                                 <th>Amount</th>
                                 <th>Coupon</th>
-                               {{-- <th>Voucher</th>--}}
+                                {{-- <th>Voucher</th>--}}
                                 <th>Total Discount</th>
                                 <th>Payment</th>
-                              {{--  <th>Total Shop</th>--}}
+                                {{--  <th>Total Shop</th>--}}
                                 {{-- <th>Total commission</th>--}}
                                 {{--  <th>Payable Amount</th>--}}
                                 <th>Payment Status</th>
-                               {{-- <th>Order Status</th>--}}
+                                <th>Order Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -123,7 +108,7 @@
                                     <td>{{$result->customer_phone}}</td>
                                     <td>{{$result->sub_total}}</td>
                                     <td>{{$result->coupon}}</td>
-                               {{--     <td>{{$result->discount-$result->coupon}}</td>--}}
+                                    {{--     <td>{{$result->discount-$result->coupon}}</td>--}}
                                     <td>{{$result->discount}}</td>
                                     <td>
                                         <span class="badge badge-success">{{$result->payment_type}}</span>
@@ -144,6 +129,32 @@
                                         @endif
                                     </td>
                                     <td>
+                                        {{--<span class="badge badge-pill badge-soft-success font-size-12">{{$result->status}}</span>--}}
+                                        @if($result->status== "Previous Order")
+                                            <span
+                                                class="badge badge-pill  font-size-12">Previous Order</span>
+                                        @elseif($result->status=="Pending")
+                                            <span
+                                                class="badge badge-pill  font-size-12">Pending</span>
+                                        @elseif($result->status=="Accepted")
+                                            <span class="badge badge-pill  font-size-12">Accepted</span>
+                                        @elseif($result->status=="Ready For Pickup")
+                                            <span class="badge badge-pill  font-size-12">Ready For Pickup</span>
+                                        @elseif($result->status=="On The Way")
+                                            <span
+                                                class="badge badge-pill  font-size-12">On The Way</span>
+                                        @elseif($result->status=="Delivered")
+                                            <span
+                                                class="badge badge-pill  font-size-12">Delivered</span>
+                                        @elseif($result->status=="Returned")
+                                            <span
+                                                class="badge badge-pill  font-size-12">Returned</span>
+                                        @else
+
+
+                                        @endif
+                                    </td>
+                                    <td>
 
                                         <div class="btn-group mr-1 mt-2">
                                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -153,12 +164,18 @@
                                             <div class="dropdown-menu" style="">
                                                 <a class="dropdown-item"
                                                    href="/admin/order/details/{{$result->order_invoice}}">Details</a>
-                                                 <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item" href="#">
                                                       <span>
                                                           <button type="button" class="btn btn-sm btn-primary"
-                                                                  data-toggle="modal" data-target="#shop{{$result->order_invoice}}">Payment</button>
+                                                                  data-toggle="modal"
+                                                                  data-target="#shop{{$result->order_invoice}}">Payment</button>
                                                       </span>
-                                                 </a>
+                                                </a>
+                                                <a class="dropdown-item"
+                                                   href="/admin/order-status/history/{{$result->order_invoice}}">Status
+                                                    Details</a>
+
+                                                @include('includes.delivery_status.index')
 
                                             </div>
                                         </div>
@@ -172,23 +189,30 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="{{$result->order_invoice}}">Cash Payment</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <h5 class="modal-title" id="{{$result->order_invoice}}">Cash
+                                                    Payment</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <form method="post" action="/admin/order/cash-payment/store">
                                                 <div class="modal-body">
-                                                    <label>Due Amount: <span class="text-danger">{{$result->sub_total}}</span> </label>
+                                                    <label>Due Amount: <span
+                                                            class="text-danger">{{$result->sub_total}}</span> </label>
 
-                                                    <input class="form-control" type="text" name="amount" placeholder="payment Amount" required>
-                                                    <input class="form-control mt-2" type="text" name="payment_method" placeholder="Payment Method" required>
-                                                    <input class="form-control mt-2" type="text" name="tran_id" placeholder="Transaction ID" required>
+                                                    <input class="form-control" type="text" name="amount"
+                                                           placeholder="payment Amount" required>
+                                                    <input class="form-control mt-2" type="text" name="payment_method"
+                                                           placeholder="Payment Method" required>
+                                                    <input class="form-control mt-2" type="text" name="tran_id"
+                                                           placeholder="Transaction ID" required>
                                                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                                                     <input type="hidden" name="order_id" value="{{$result->order_id}}">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
                                                         Close
                                                     </button>
                                                     <button type="submit" class="btn btn-primary">Save</button>

@@ -12,25 +12,24 @@ class OrderStatusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function statusUpdate($id ,$value, Request $request)
+    public function statusUpdate($invoice ,$value, Request $request)
     {
-
-        $request['order_item_id']= $id;
-        $request['delivery_status']= $value;
         try {
-            OrderStatus::create($request->all());
+            OrderStatus::where('order_invoice', $invoice)->update([
+                'delivery_status' =>$value
+            ]);
             return back()->with('success', "successfully Status Updated");
         } catch (\Exception $exception) {
             return back()->with('failed', $exception->getMessage());
         }
     }
-    public function MerchantStatusUpdate($id ,$value, Request $request)
+    public function MerchantStatusUpdate($invoice ,$value, Request $request)
     {
 
-        $request['order_item_id']= $id;
-        $request['delivery_status']= $value;
         try {
-            OrderStatus::create($request->all());
+            OrderStatus::where('order_invoice', $invoice)->update([
+                'delivery_status' =>$value
+            ]);
             return back()->with('success', "successfully Status Updated");
         } catch (\Exception $exception) {
             return back()->with('failed', $exception->getMessage());

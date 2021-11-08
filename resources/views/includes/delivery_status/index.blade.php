@@ -1,63 +1,81 @@
-<div class="dropdown-menu" style="">
-    @if($product->status == 'Pending')
+<div  style="">
+{{--    @if($result->status == null )
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/1">Accepted
+           href="/admin/order-status/update/{{$result->order_invoice}}/1">Accepted
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/2">Ready
+           href="/admin/order-status/update/{{$result->order_invoice}}/2">Ready
             For Pick
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/3">On
+           href="/admin/order-status/update/{{$result->order_invoice}}/3">On
             The Way
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/4">Delivered
+           href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/5">Returned
+           href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
         </a>
-    @elseif($product->status == 'Accepted')
+    @else--}}@if($result->status == 'Pending' )
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/2">Ready
+           href="/admin/order-status/update/{{$result->order_invoice}}/1">Accepted
+        </a>
+        <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+           href="/admin/order-status/update/{{$result->order_invoice}}/2">Ready
             For Pick
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/3">On
+           href="/admin/order-status/update/{{$result->order_invoice}}/3">On
             The Way
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/4">Delivered
+           href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/5">Returned
+           href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
         </a>
-    @elseif($product->status == 'Ready For Pickup')
+    @elseif($result->status == 'Accepted')
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/3">On
+           href="/admin/order-status/update/{{$result->order_invoice}}/2">Ready
+            For Pick
+        </a>
+        <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+           href="/admin/order-status/update/{{$result->order_invoice}}/3">On
             The Way
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/4">Delivered
+           href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/5">Returned
+           href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
         </a>
-    @elseif($product->status == 'On The Way')
+    @elseif($result->status == 'Ready For Pickup')
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/4">Delivered
+           href="/admin/order-status/update/{{$result->order_invoice}}/3">On
+            The Way
         </a>
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/5">Returned
+           href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
         </a>
- {{--   @elseif($product->status == 'Delivered')
         <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/4">Delivered
+           href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
         </a>
+    @elseif($result->status == 'On The Way')
+        <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+           href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
+        </a>
+        <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+           href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
+        </a>
+        {{--   @elseif($result->status == 'Delivered')
+               <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+                  href="/admin/order-status/update/{{$result->order_invoice}}/4">Delivered
+               </a>
 
-    @else
-        <a class="dropdown-item" onclick="return confirm('Are you sure?')"
-           href="/admin/order-status/update/{{$product->order_item_id}}/5">Returned
-        </a>--}}
+           @else
+               <a class="dropdown-item" onclick="return confirm('Are you sure?')"
+                  href="/admin/order-status/update/{{$result->order_invoice}}/5">Returned
+               </a>--}}
     @endif
 </div>

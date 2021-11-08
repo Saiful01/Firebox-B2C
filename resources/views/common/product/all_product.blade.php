@@ -67,7 +67,7 @@
                             <div class="category-wrap">
                                 <div class="category category-ellipse">
                                     <figure class="category-media">
-                                        <a href="/categories/{{$category->category_id}}/{{getTitleToUrl($category->category_name_en)}}">{{$category->category_name_en}}">
+                                        <a href="{{$category->category_link}}">
                                             <img src="{{$category->category_image}}" alt="Categroy"
                                                  width="190" height="190" style="background-color: #5C92C0;"/>
                                         </a>
