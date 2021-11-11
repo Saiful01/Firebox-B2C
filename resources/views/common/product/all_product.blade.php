@@ -190,7 +190,7 @@
                     <!-- End of Selected Items -->
 
                     <!-- Start of Product Wrapper -->
-                    <div class="product-wrapper row cols-lg-4 cols-md-3 cols-sm-2 cols-2">
+                    <div class="product-wrapper row cols-lg-6 cols-md-3 cols-sm-2 cols-2">
                         @foreach($products as $product)
                             @include('common.home.single_product')
                         @endforeach

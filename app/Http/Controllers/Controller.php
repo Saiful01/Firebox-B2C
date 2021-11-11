@@ -121,13 +121,14 @@ class Controller extends BaseController
 
         foreach ($categories as $category) {
             $category->category_name = $category->sub_category_name_en;
-            $category->category_link = "/sub-category/" . $category->sub_category_id . "/" . getTitleToUrl($category->sub_category_name_en);
+            $category->category_link = "/sub-categories/" . $category->sub_category_id . "/" . getTitleToUrl($category->sub_category_name_en);
             if ($category->featured_image != null) {
                 $category->category_image = $category->featured_image;
             } else {
                 $category->category_image = "/images/no_image.jpg";
             }
         }
+      // return $categories;
 
         return view('common.product.all_product')
             ->with('products', $products)
@@ -141,7 +142,7 @@ class Controller extends BaseController
     {
         $title = $name;
         $products = Product::where('sub_category_id', $id)->limit(50)->get();
-        return view('common.category.index')
+        return view('common.product.sub_category_product')
             ->with('products', $products)
             ->with('title', $title);
     }
