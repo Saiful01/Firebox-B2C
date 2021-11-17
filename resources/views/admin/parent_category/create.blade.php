@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label for="category_address" class="col-sm-3 col-form-label">Image (200*130 PX)<span class="text-danger">*</span></label>
+                            <label for="category_address" class="col-sm-3 col-form-label">Image (200*200 PX)<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="file" class="form-control" id="image" name="image">
                             </div>

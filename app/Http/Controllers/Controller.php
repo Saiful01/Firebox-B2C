@@ -99,7 +99,7 @@ class Controller extends BaseController
 
         foreach ($categories as $category) {
             $category->category_name = $category->category_name_en;
-            $category->category_link = "/categories/" . $category->parent_category_id . "/" . getTitleToUrl($category->category_name_en);
+            $category->category_link = "/categories/" . $category->category_id . "/" . getTitleToUrl($category->category_name_en);
             if ($category->category_image != null) {
                 $category->category_image = $category->category_image;
             } else {
@@ -115,13 +115,14 @@ class Controller extends BaseController
 
     public function categoryProduct($id, $name)
     {
+
         $title = $name;
         $products = Product::where('category_id', $id)->limit(50)->get();
         $categories = SubCategory::where('category_id', $id)->limit(10)->get();
 
         foreach ($categories as $category) {
             $category->category_name = $category->sub_category_name_en;
-            $category->category_link = "/sub-categories/" . $category->sub_category_id . "/" . getTitleToUrl($category->sub_category_name_en);
+            $category->category_link = "/sub-categories/". $category->sub_category_id. "/" . getTitleToUrl($category->sub_category_name_en);
             if ($category->featured_image != null) {
                 $category->category_image = $category->featured_image;
             } else {
@@ -133,6 +134,26 @@ class Controller extends BaseController
         return view('common.product.all_product')
             ->with('products', $products)
             ->with('title', $title)
+            ->with('categories', $categories);
+
+
+    }
+    public function allCategory()
+    {
+        $categories = ParentCategory::where('is_active', true)->get();
+
+        foreach ($categories as $category) {
+            $category->category_name = $category->parent_category_name_en;
+            $category->category_link = "/parent-categories/". $category->parent_category_id. "/" . getTitleToUrl($category->parent_category_name_en);
+            if ($category->featured_image != null) {
+                $category->category_image = $category->featured_image;
+            } else {
+                $category->category_image = "/images/no_image.jpg";
+            }
+        }
+      // return $categories;
+
+        return view('common.product.all_category')
             ->with('categories', $categories);
 
 

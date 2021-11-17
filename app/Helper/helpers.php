@@ -949,7 +949,7 @@ function getEmail()
 
 function getPhone()
 {
-    return "+88 01303-218613";
+    return "01324264857,"."\n"."01324264856";
 }
 
 

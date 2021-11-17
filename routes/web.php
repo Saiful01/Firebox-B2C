@@ -403,6 +403,7 @@ Route::get('/product/{id}/{name}', [Controller::class, 'details']);
 Route::get('/parent-categories/{id}/{name}', [Controller::class, 'parentaCategoryProduct']);
 Route::get('/categories/{id}/{name}', [Controller::class, 'categoryProduct']);
 Route::get('/sub-categories/{id}/{name}', [Controller::class, 'subCategoryProduct']);
+Route::get('/all-category', [Controller::class, 'allCategory']);
 
 
 Route::any('/shop/{id}/{name}', [Controller::class, 'shopProducts']);

@@ -136,7 +136,7 @@
                                     @endforeach
 
                                     <li>
-                                        <a href="/all-products"
+                                        <a href="/all-category"
                                            class="font-weight-bold text-uppercase ls-25">
                                             View All Categories<i class="w-icon-angle-right"></i>
                                         </a>

@@ -35,7 +35,7 @@
                 <!-- Start of Shop Category -->
                 <div class="shop-default-category category-ellipse-section mb-6">
                     <div
-                        class=" owl-theme appear-animate row cols-lg-6 cols-md-4 cols-sm-3 cols-2 mb-6"
+                        class=" owl-theme appear-animate row cols-lg-8 cols-md-4 cols-sm-3 cols-2 mb-6"
                         data-owl-options="{
                             'nav': false,
                             'dots': true,
@@ -69,7 +69,7 @@
                                     <figure class="category-media">
                                         <a href="{{$category->category_link}}">
                                             <img src="{{$category->category_image}}" alt="Categroy"
-                                                 width="190" height="190" style="background-color: #5C92C0;"/>
+                                                 width="100" height="100" style="background-color: #5C92C0;"/>
                                         </a>
                                     </figure>
                                     <div class="category-content">
